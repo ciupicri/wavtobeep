@@ -32,6 +32,8 @@ parser.add_argument('file', help='raw .wav file to be converted.')
 parser.add_argument(
     '-w',
     metavar='TIME',
+    default=50,
+    type=int,
     help='Time window for frequency analysis (in ms). Default 50 ms.',
 )
 parser.add_argument('--verbose', action='store_true', help='Prints the beep command.')
@@ -43,7 +45,7 @@ args = parser.parse_args()
 # Maximum permitted length of the processed data (in seconds)
 MAX_LEN = 40
 # Resolution of the time window for frequency analysis.
-CH_MS = 50 if not args.w else int(args.w)
+CH_MS = args.w
 fs, data = wavfile.read(args.file)
 data = data[: MAX_LEN * fs]
 # Window size and overlap definition for the spectral analysis
