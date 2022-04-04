@@ -10,7 +10,7 @@ frequency analysis.
 """
 
 import argparse
-import os
+import subprocess
 
 import numpy as np
 from scipy.io import wavfile
@@ -78,14 +78,14 @@ for i in range(0, len(data), w - overlap):
         freql.append((dur, hz))
 # Command build (beep version)
 # Example: beep -l 50 -f 140.0 -n -l 250 -f 370.0 -n -l 50 -f 190.0
-com = 'beep '
+cmd = ['beep']
 for msec, freq in freql:
-    com = com + '-l {0} -f {1} -n '.format(msec, freq)
-com = com[:-4]
+    cmd.extend(('-l', str(msec), '-f', str(freq), '-n'))
+cmd = cmd[:-1]  # drop last -n
 if args.verbose:
-    print(com)
+    print(cmd)
 if not args.silent:
-    os.system(com)
+    subprocess.run(cmd)
 
 # Arduino version
 com = ''
