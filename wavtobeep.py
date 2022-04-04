@@ -9,10 +9,11 @@ frequency analysis.
 @author: T. Teijeiro
 """
 
-import os
-from scipy.io import wavfile
-import numpy as np
 import argparse
+import os
+
+import numpy as np
+from scipy.io import wavfile
 
 
 def frequency(note, octave):
