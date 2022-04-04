@@ -21,7 +21,7 @@ def frequency(note, octave):
 
 
 # Accepted frequencies
-FREQS = np.array([1] + [frequency(n, o) for o in xrange(10) for n in xrange(1, 13)])
+FREQS = np.array([1] + [frequency(n, o) for o in range(10) for n in range(1, 13)])
 
 # Argument parsing
 parser = argparse.ArgumentParser(
@@ -58,7 +58,7 @@ freq = np.arange(0, fs / 2.0, (fs / 2.0) / (w / 2))
 data = data[: n * (w - overlap)]
 blw = np.blackman(w)
 freql = []
-for i in xrange(0, len(data), w - overlap):
+for i in range(0, len(data), w - overlap):
     chunk = data[i : i + w]
     if len(chunk) != w:
         chunk = chunk.copy()
