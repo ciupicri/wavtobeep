@@ -66,7 +66,7 @@ def wav_to_frequencies(filename: str, window: int) -> list:
         # Get the most representative frequency of the chunk
         hz = freq[np.absolute(ft).argmax()]
         # We check the frequency table to get the closest
-        hz = FREQS[np.abs(FREQS - hz).argmin()]
+        hz = int(FREQS[np.abs(FREQS - hz).argmin()])
         if freql and freql[-1][1] == hz:
             freql[-1] = (freql[-1][0] + dur, hz)
         else:
