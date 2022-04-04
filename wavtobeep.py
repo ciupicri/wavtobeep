@@ -17,7 +17,7 @@ import argparse
 
 def frequency(note, octave):
     """http://latecladeescape.com/t/Frecuencia+de+las+notas+musicales"""
-    return 440.0 * np.exp(((octave - 4) + (note - 10) / 12.0) * np.log(2))
+    return 440 * np.exp(((octave - 4) + (note - 10) / 12) * np.log(2))
 
 
 # Accepted frequencies
@@ -46,14 +46,14 @@ CH_MS = 50 if not args.w else int(args.w)
 fs, data = wavfile.read(args.file)
 data = data[: MAX_LEN * fs]
 # Window size and overlap definition for the spectral analysis
-w = int(fs / 1000.0 * CH_MS)
-overlap = w / 2
+w = int(fs / 1000 * CH_MS)
+overlap = w // 2
 # Number of chunks with the selected parameters
-n = len(data) / (w - overlap)
+n = len(data) // (w - overlap)
 # Duration of each beep
-dur = int(1000.0 * (len(data) / float(fs)) / n)
+dur = int(1000 * (len(data) / float(fs)) / n)
 # Array of frequencies
-freq = np.arange(0, fs / 2.0, (fs / 2.0) / (w / 2))
+freq = np.arange(0, fs / 2, (fs / 2) / (w / 2))
 # We truncate the data array to be a multiplo of the step
 data = data[: n * (w - overlap)]
 blw = np.blackman(w)
@@ -66,7 +66,7 @@ for i in range(0, len(data), w - overlap):
     chunk = chunk * blw
     chunk = chunk - np.mean(chunk)
     ft = np.fft.fft(chunk)
-    ft = ft[: w / 2]
+    ft = ft[: w // 2]
     # Get the most representative frequency of the chunk
     hz = freq[np.absolute(ft).argmax()]
     # We check the frequency table to get the closest
