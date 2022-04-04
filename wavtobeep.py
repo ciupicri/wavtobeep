@@ -31,6 +31,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument('file', help='raw .wav file to be converted.')
 parser.add_argument(
     '-w',
+    '--window',
     metavar='TIME',
     default=50,
     type=int,
@@ -45,7 +46,7 @@ args = parser.parse_args()
 # Maximum permitted length of the processed data (in seconds)
 MAX_LEN = 40
 # Resolution of the time window for frequency analysis.
-CH_MS = args.w
+CH_MS = args.window
 fs, data = wavfile.read(args.file)
 data = data[: MAX_LEN * fs]
 # Window size and overlap definition for the spectral analysis
